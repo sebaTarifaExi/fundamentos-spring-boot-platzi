@@ -54,24 +54,26 @@ public class FundamentosApplication implements CommandLineRunner {
 		saveUsersInDataBase();
 		getInformationJpqlFromUser();
 		saveWithErrorTransactional();
-		}
+	}
 
-		private void saveWithErrorTransactional(){
-			User test1 = new User("TestTransactional1", "TestTransactional1@domain.com", LocalDate.now());
-			User test2 = new User("TestTransactional2", "TestTransactional2@domain.com", LocalDate.now());
-			User test3 = new User("TestTransactional3", "TestTransactional3@domain.com", LocalDate.now());
-			User test4 = new User("TestTransactional4", "TestTransactional4@domain.com", LocalDate.now());
+	private void saveWithErrorTransactional(){
+		User test1 = new User("TestTransactional1", "TestTransactional1@domain.com", LocalDate.now());
+		User test2 = new User("TestTransactional2", "TestTransactional2@domain.com", LocalDate.now());
+		User test3 = new User("TestTransactional3", "TestTransactional1@domain.com", LocalDate.now());
+		User test4 = new User("TestTransactional4", "TestTransactional4@domain.com", LocalDate.now());
 
-			List<User> users = Arrays.asList(test1,test2,test3,test4);
-
+		List<User> users = Arrays.asList(test1,test2,test3,test4);
+		try {
 			userService.saveTransactional(users);
-
+		}catch (Exception e){
+			LOGGER.error("Esta es una excepcion dentro del metodo transccional: "+e);
+		}
 			userService.getAllUsers().stream()
 					.forEach(user -> LOGGER.info("Este es el usuario por metodo transaccional: "+user));
 		}
 
 		private void getInformationJpqlFromUser(){
-			/* LOGGER.info("Usuario con el metodo findByUserEmail: " + userRepository.findByUserEmail("julie@domain.com")
+            /* LOGGER.info("Usuario con el metodo findByUserEmail: " + userRepository.findByUserEmail("julie@domain.com")
 					.orElseThrow(()-> new RuntimeException("No se encontro el usuario")));
 
 			userRepository.findAndSort("user", Sort.by("id").descending())
@@ -103,9 +105,8 @@ public class FundamentosApplication implements CommandLineRunner {
 					.forEach(user -> LOGGER.info("Usuarios encontrados por findByNameLikeOrderByIdDesc: " + user));
 
 			LOGGER.info("El usuario encontrado a partir del named parad es: " + userRepository.getAllByBirthDateAndEmail(LocalDate.of(2021,7,21),"daniela@domain.com")
-					.orElseThrow(()-> new RuntimeException("No se encontro el usuario a partir del named param"));
+					.orElseThrow(()-> new RuntimeException("No se encontro el usuario a partir del named param")));
 		}
-
 
 
 		private void saveUsersInDataBase(){

@@ -22,7 +22,7 @@ public class UserService {
         users.stream()
                 .peek(user -> LOG.info("Usuario insertado: "+user))
                 //.forEach(user -> userRepository::save);
-                .forEach(user -> userRepository.save(user));
+               .forEach(user -> userRepository.save(user));
     }
 
     public List<User> getAllUsers(){
