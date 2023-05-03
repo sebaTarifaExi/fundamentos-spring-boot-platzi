@@ -104,8 +104,8 @@ public class FundamentosApplication implements CommandLineRunner {
 					.stream()
 					.forEach(user -> LOGGER.info("Usuarios encontrados por findByNameLikeOrderByIdDesc: " + user));
 
-			LOGGER.info("El usuario encontrado a partir del named parad es: " + userRepository.getAllByBirthDateAndEmail(LocalDate.of(2021,7,21),"daniela@domain.com")
-					.orElseThrow(()-> new RuntimeException("No se encontro el usuario a partir del named param")));
+		//	LOGGER.info("El usuario encontrado a partir del named parad es: " + userRepository.getAllByBirthDateAndEmail(LocalDate.of(2021,7,21),"daniela@domain.com")
+			//		.orElseThrow(()-> new RuntimeException("No se encontro el usuario a partir del named param")));
 		}
 
 
